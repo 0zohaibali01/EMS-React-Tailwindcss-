@@ -1,15 +1,19 @@
 import React from 'react'
 import Header from '../others/Header'
+import TaskListNumbers from '../others/TaskListNumbers'
+import TaskList from '../TaskList/TaskList'
 
 
-function EmployeeDashboard() {
+function EmployeeDashboard(props) {
     return (
-    <div className='text-white bg-[#121212] '>
-        <div className='p-8 bg-[#1c1c1c]'>
-            <Header />
+        <div className=' '>
+            <div className='p-8 h-screen w-screen'>
+                <Header changeUser={props.changeUser} data={props.data}/>
+                <TaskListNumbers data={props.data}/>
+                <TaskList data={props.data}/>
+            </div>
         </div>
-    </div>
-  )
+    )
 }
 
 export default EmployeeDashboard

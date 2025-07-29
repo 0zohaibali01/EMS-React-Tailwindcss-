@@ -2,3 +2,14 @@
 @tailwind components;
 @tailwind utilities;
    
+body{
+    @apply bg-[#1c1c1c] text-white;
+}
+
+#alltasks::-webkit-scrollbar,#tasklist::-webkit-scrollbar{
+    display: none;
+}
+
+body::-webkit-scrollbar{
+    display: none;
+}
