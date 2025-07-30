@@ -5,15 +5,15 @@ import FailedTask from './FailedTask'
 import CompleteTask from './CompleteTask'
 
 
-function TaskList({ data }) {
+function TaskList({ data, updateUserData }) {
     return (
         <div id='tasklist' className=' h-[55%] w-full flex items-center justify-start gap-5 flex-nowrap overflow-x-auto py-5 mt-10'>
             {data.tasks.map((elem, idx) => {
                 if (elem.active) {
-                    return <AcceptTask e={elem} key={idx} />
+                    return <AcceptTask data={data} e={elem} key={idx} updateUserData={updateUserData}/>
                 }
                 if (elem.newTask) {
-                    return <NewTask e={elem} key={idx} />
+                    return <NewTask data={data} e={elem} key={idx} updateUserData={updateUserData} />;
                 }
                 if (elem.completed) {
                     return <CompleteTask e={elem} key={idx} />

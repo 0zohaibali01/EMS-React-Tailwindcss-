@@ -11,7 +11,7 @@ function App() {
   // setLocalStorage()
 
   const [user, setUser] = useState(null)
-  const [loggedInUserData, setloggedInUserData] = useState(null)
+  const [loggedInUserData, setloggedInUserData] = useState(null);
   const authData = useContext(AuthContext)
 
   useEffect(() => {
@@ -49,7 +49,12 @@ function App() {
       ) : user.role === 'admin' ? (
         <AdminDashboard changeUser={setUser} />
       ) : (
-        <EmployeeDashboard changeUser={setUser} data={loggedInUserData} />
+        <EmployeeDashboard
+          changeUser={setUser}
+          data={loggedInUserData}
+          setloggedInUserData={setloggedInUserData}
+        />
+
       )}
     </>
   );

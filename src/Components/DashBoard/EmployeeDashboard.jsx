@@ -8,9 +8,9 @@ function EmployeeDashboard(props) {
     return (
         <div className=' '>
             <div className='p-8 h-screen w-screen'>
-                <Header changeUser={props.changeUser} data={props.data}/>
-                <TaskListNumbers data={props.data}/>
-                <TaskList data={props.data}/>
+                <Header changeUser={props.changeUser} data={props.data} />
+                <TaskListNumbers data={props.data} />
+                <TaskList data={props.data} updateUserData={props.setloggedInUserData} />
             </div>
         </div>
     )
