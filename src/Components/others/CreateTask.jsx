@@ -15,7 +15,7 @@ function CreateTask() {
         e.preventDefault();
 
         const task = {
-            active: true,
+            active: false,
             newTask: true,
             completed: false,
             failed: false,

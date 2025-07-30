@@ -6,7 +6,7 @@ import AllTasks from '../others/AllTasks'
 function AdminDashboard(props) {
     return (
         <div className="h-screen w-full p-10">
-            <Header changeUser={props.changeUser} />
+            <Header data={props.data} changeUser={props.changeUser} />
             <CreateTask />
             <AllTasks />
         </div>
