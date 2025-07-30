@@ -1,15 +1,14 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react';
+import { AuthContext } from '../../Context/AuthProvider'; // adjust path if needed
 
 function CreateTask() {
+    const { employees, setEmployees } = useContext(AuthContext);
+
     const [taskTitle, setTaskTitle] = useState('');
     const [taskDate, setTaskDate] = useState('');
     const [assignedTo, setAssignedTo] = useState('');
     const [category, setCategory] = useState('UI');
     const [description, setDescription] = useState('');
-
-    const [newTask, setNewTask] = useState({})
-
-    const data = JSON.parse(localStorage.getItem('employees'))
 
     const submitHandler = (e) => {
         e.preventDefault();
@@ -25,26 +24,36 @@ function CreateTask() {
             category: category,
         };
 
-        const updatedEmployees = data.map((employee) => {
+        const updatedEmployees = employees.map((employee) => {
             if (employee.name === assignedTo) {
-                if (!employee.tasks) employee.tasks = [];
+                const updatedTasks = [...(employee.tasks || []), task];
+                const taskNumbers = { ...employee.taskNumbers } || {
+                    active: 0,
+                    newTask: 0,
+                    completed: 0,
+                    failed: 0,
+                };
 
-                employee.tasks.push(task);
+                // Update task count
+                if (task.active) taskNumbers.active += 1;
+                if (task.newTask) taskNumbers.newTask += 1;
+                if (task.completed) taskNumbers.completed += 1;
+                if (task.failed) taskNumbers.failed += 1;
 
-                if (!employee.taskNumbers) {
-                    employee.taskNumbers = { active: 0, newTask: 0, completed: 0, failed: 0 };
-                }
-
-                if (task.active) employee.taskNumbers.active += 1;
-                if (task.newTask) employee.taskNumbers.newTask += 1;
-                if (task.completed) employee.taskNumbers.completed += 1;
-                if (task.failed) employee.taskNumbers.failed += 1;
+                return {
+                    ...employee,
+                    tasks: updatedTasks,
+                    taskNumbers,
+                };
             }
             return employee;
         });
 
+        // Update context and localStorage
+        setEmployees(updatedEmployees);
         localStorage.setItem('employees', JSON.stringify(updatedEmployees));
 
+        // Clear form
         setTaskTitle('');
         setDescription('');
         setAssignedTo('');
